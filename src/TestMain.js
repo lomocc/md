@@ -2,7 +2,7 @@
  * Created by vincent on 17/3/11.
  */
 import {createElement} from 'lomo';
-import {DisplayContainer, Image, TextField, Button} from 'lomo';
+import {DisplayContainer, Image, TextField, Button, Sprite} from 'lomo';
 import gsap, {TweenLite, Power2, TweenPlugin} from "gsap";
 import TextPlugin from 'gsap/TextPlugin';
 import TestSVG from './TestSVG';
@@ -43,8 +43,29 @@ export default class TestMain extends DisplayContainer{
         btn.label = '测试按钮';
         this.addChildAt(btn, 0);
 
+        var s = new Sprite({width: 400, height: 388});
+        // s.setSize(500, 500);
+        s.setLineWidth(0.25);
+        s.strokeGrid(0, 0, s.width, s.height, 20);
+        s.setShadow("rgba(0,0,0,0.5", 10, 10, 20);
+        document.body.addEventListener("click", function(event) {
+            var x = event.clientX + Math.random() * 100 - 50,
+                y = event.clientY + Math.random() * 100 - 50,
+                w = Math.random() * 40 + 60,
+                h = Math.random() * 40 + 60,
+                r = Math.random() * Math.PI / 3 - Math.PI / 6;
+            var g = Math.random() * 220,
+                b = g + Math.random() * 40 - 20;
+            s.clear();
+            var sides = Math.random() * 20>>0;
+            // s.setFill(255, g, b);
+            s.fillRoundRect(x,y,w,h, 5);
+            // s.fill();
+            // s.fillPolygon(70, 70, 50, sides);
+        });
+        this.addChild(s);
+        
         btn.on('click', (event)=>{
-            console.log(123, event);
             // ui2.removeChildAt(-1);
             TweenLite.to(ui2.element, 0.5, {backgroundColor:"#"+Math.random().toString(16).substr(2, 6), width:500*Math.random()+100, ease:Power2.easeInOut});
             TweenLite.to(tf1.element, 1, {text:"This is the new text"});
