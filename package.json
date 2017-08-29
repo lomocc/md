@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "animejs": "^2.0.2",
-    "lomo": "^1.0.2"
+    "gsap": "^1.20.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
