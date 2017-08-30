@@ -4,10 +4,10 @@
 /**
  * Created by Administrator on 2017/4/13.
  */
-import {DisplayContainer} from "lomo";
+import {Node} from "lomo";
 import anime from "animejs";
 
-export default class TestSVGLogo extends DisplayContainer {
+export default class TestSVGLogo extends Node {
   onCreate(){
     super.onCreate();
 

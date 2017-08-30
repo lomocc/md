@@ -4,10 +4,10 @@
 /**
  * Created by Administrator on 2017/4/13.
  */
-import {createElement, DisplayContainer} from 'lomo';
+import {createElement, Node} from 'lomo';
 import anime from 'animejs';
 
-export default class TestSVGLine extends DisplayContainer {
+export default class TestSVGLine extends Node {
     onCreate(){
         super.onCreate();
         let svgLine = <svg id="svgline" viewBox="0 0 1100 800">

@@ -1,9 +1,9 @@
 /**
  * Created by Administrator on 2017/4/13.
  */
-import {createElement, DisplayContainer} from 'lomo';
+import {createElement, Node} from 'lomo';
 import anime from 'animejs';
-export default class TestSVG extends DisplayContainer {
+export default class TestSVG extends Node {
     onCreate(){
         super.onCreate();
         let svg = <svg version="1.1" width="516.3px" height="190px" viewBox="0 0 516.3 190" style="enable-background:new 0 0 516.3 211.99;">

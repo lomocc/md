@@ -1,7 +1,7 @@
 /**
  * Created by vincent on 17/3/11.
  */
-import {Stage, DisplayContainer, Image, Video, Text, Button, Sprite, Input} from "lomo";
+import {Stage, Node, Image, Video, Text, Button, Sprite, Input} from "lomo";
 import {TweenLite, Power2, TweenPlugin} from "gsap";
 import TextPlugin from "gsap/TextPlugin";
 import TestSVG from "./TestSVG";
@@ -22,12 +22,12 @@ export default class TestMain extends Stage {
   //     return <div {...this.props}/>;
   // }
   onCreate() {
-    var ui2 = new DisplayContainer();
+    var ui2 = new Node();
     this.addChild(ui2);
 
-    let ui2IsDisplayDisplayContainer = ui2 instanceof DisplayContainer;
+    let ui2IsDisplayNode = ui2 instanceof Node;
     let ui2IsDisplayButton = ui2 instanceof Button;
-    console.log('ui2IsDisplayDisplayContainer', ui2IsDisplayDisplayContainer, ui2IsDisplayButton)
+    console.log('ui2IsDisplayNode', ui2IsDisplayNode, ui2IsDisplayButton)
 
     var img1 = new Image();
     img1.src = 'https://3.bp.blogspot.com/-f7KZFUN5NNE/Vi2iJ1wBmtI/AAAAAAAGqow/tdtOUNLIyTc/s1600/%25E6%259D%25BE%25E6%259C%25AC%2B%25E6%25BD%25AE%25E9%2587%258C%2528Shiori%2BMatsumoto%2529-www.kaifineart.com-11.jpg';
@@ -53,7 +53,7 @@ export default class TestMain extends Stage {
     let svgLogo = new TestSVGLogo();
     this.addChildAt(svgLogo, 0);
 
-    var container = new DisplayContainer();
+    var container = new Node();
     this.addChild(container);
     this.container = container;
 
