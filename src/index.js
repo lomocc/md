@@ -1,4 +1,4 @@
-import {Application, Image, Label, Video} from "lomo";
+import {Application, Image, Input, Label, Video} from "lomo";
 import ECharts from "./ECharts";
 var app = new Application();
 app.start();
@@ -12,6 +12,11 @@ label1.style = {fontSize: '30px', color: 'red'};
 label1.className = 'tf1_test';
 label1.text = "但是，我们只保护我们的代码不受在其之后执行的代码的干扰，并不能防御先于我们代码执行的代码。";
 app.addElement(label1);
+
+var input1 = new Input();
+input1.style = {fontSize: '30px', color: '#56a'};
+input1.text = "但是，我们只保护我们的代码不受在其之后执行的代码的干扰，并不能防御先于我们代码执行的代码。";
+app.addElement(input1);
 
 var video1 = new Video();
 video1.addEventListener('sourceChanged', function (event) {
