@@ -1,6 +1,6 @@
 {
   "name": "examples",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "main": "index.js",
   "repository": "git@github.com:lomo-framework/examples.git",
   "author": "Vincent <const@lomo.cc>",
