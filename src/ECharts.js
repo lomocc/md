@@ -1,28 +1,38 @@
 /**
  * Created by Vincent on 2017/8/31.
  */
-import {createElement, Node} from 'lomo';
+import {DisplayObject} from 'lomo';
 import echarts from 'echarts';
-export default class ECharts extends Node {
-  onCreate(){
-    super.onCreate();
+export default class ECharts extends DisplayObject {
+  createElement(){
+    let positioner = super.createElement();
 
-    console.log('ECharts onCreate');
-    this.$echart = echarts.init(this.element);
+    this.$echart = echarts.init(positioner);
+
+    this.valueChangedHandler = this.valueChangedHandler.bind(this);
+    this.styleChangedHandler = this.styleChangedHandler.bind(this);
+    this.addEventListener('valueChanged', this.valueChangedHandler);
+    this.addEventListener('styleChanged', this.styleChangedHandler);
+
+    return positioner;
   }
   get option(){
-    this.getProperty('option');
+    this.getValue('option');
   }
   set option(value){
-    this.setProperty('option', value);
+    this.setValue('option', value);
   }
-  render(props){
-    let {option, ...others} = props;
-
-    super.render(others);
-
-    if(!!option) {
-      this.$echart.setOption(option, true);
+  valueChangedHandler(event){
+    if(event.propertyName == 'option'){
+      if(event.newValue) {
+        this.$echart.setOption(event.newValue, true);
+      }
     }
+  }
+  styleChangedHandler(event){
+    setTimeout(()=>{
+      this.$echart.resize();
+    });
+    console.log('this.$echart.styleChangedHandler');
   }
 }
