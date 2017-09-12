@@ -1,8 +1,9 @@
-import {Application, Image, Input, Label, Video} from "lomo";
+import {Application, Image, Input, Label, Video, Button} from "lomo";
 import ECharts from "./ECharts";
 var app = new Application();
 app.start();
 
+console.log(process.env.VERSION, process.env.NODE_ENV)
 var img1 = new Image();
 img1.source = "https://4.bp.blogspot.com/-QxIjKSiGWZU/Vi2iKa-D15I/AAAAAAAGqoo/D-0_NT3zkGo/s1600/%25E6%259D%25BE%25E6%259C%25AC%2B%25E6%25BD%25AE%25E9%2587%258C%2528Shiori%2BMatsumoto%2529-www.kaifineart.com-12.jpg";
 app.addElement(img1);

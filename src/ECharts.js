@@ -5,16 +5,14 @@ import {DisplayObject} from 'lomo';
 import echarts from 'echarts';
 export default class ECharts extends DisplayObject {
   createElement(){
-    let positioner = super.createElement();
+    super.createElement();
 
-    this.$echart = echarts.init(positioner);
+    this.$echart = echarts.init(this.element);
 
     this.valueChangedHandler = this.valueChangedHandler.bind(this);
     this.styleChangedHandler = this.styleChangedHandler.bind(this);
     this.addEventListener('valueChanged', this.valueChangedHandler);
     this.addEventListener('styleChanged', this.styleChangedHandler);
-
-    return positioner;
   }
   get option(){
     this.getValue('option');
