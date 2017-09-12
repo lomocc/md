@@ -79,3 +79,14 @@ let option = {
 charts.option = option;
 charts.style = {width:400, height: 400};
 app.addElement(charts);
+
+
+var button1 = new Button();
+button1.style = {fontSize: '30px', color: '#56a'};
+button1.text = "防御代码执行";
+app.addElement(button1);
+
+button1.addEventListener('click', ()=>{
+  console.log('button1 click');
+  video1.paused = !video1.paused;
+});
