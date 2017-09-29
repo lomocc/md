@@ -1,7 +1,27 @@
-import {Application, Image, Input, Label, Video, Button} from "lomo";
-import ECharts from "./ECharts";
+import {Application, Image, Input, Label, Video, Button, Shape, DisplayObject} from "lomo";
+import FloatButton from './FloatButton';
 var app = new Application();
 app.start();
+
+var buttonNav = new FloatButton();
+buttonNav.setStyle({
+  borderRadius: 20,
+  width: 20,
+  height: 20,
+  backgroundColor: 0xff9900
+});
+buttonNav.style.position = 'fixed';
+app.addElement(buttonNav);
+
+buttonNav.addDOMListener('click', ()=>{
+  console.log('click');
+  // location.href = '/menu.md';
+}, true);
+
+var post_container = new DisplayObject();
+post_container.positioner.innerHTML = post_content;
+app.addElement(post_container);
+
 
 console.log(process.env.VERSION, process.env.NODE_ENV)
 var img1 = new Image();
@@ -9,84 +29,25 @@ img1.source = "https://4.bp.blogspot.com/-QxIjKSiGWZU/Vi2iKa-D15I/AAAAAAAGqoo/D-
 app.addElement(img1);
 
 var label1 = new Label();
-label1.style = {fontSize: '30px', color: 'red'};
+label1.setStyle({fontSize: '30px', color: 'red'});
 label1.className = 'tf1_test';
 label1.text = "但是，我们只保护我们的代码不受在其之后执行的代码的干扰，并不能防御先于我们代码执行的代码。";
 app.addElement(label1);
 
 var input1 = new Input();
-input1.style = {fontSize: '30px', color: '#56a'};
+input1.setStyle({fontSize: '30px', color: '#56a'});
 input1.text = "但是，我们只保护我们的代码不受在其之后执行的代码的干扰，并不能防御先于我们代码执行的代码。";
 app.addElement(input1);
 
 var video1 = new Video();
-video1.addEventListener('sourceChanged', function (event) {
+video1.addDOMListener('sourceChanged', function (event) {
   console.log('video1', event.target.source);
 });
 video1.source = 'http://www.w3school.com.cn/i/movie.ogg';
 video1.controls = false;
-video1.autoplay = true;
+video1.autoplay = false;
 video1.loop = true;
 video1.width = 600;
 
 app.addElement(video1);
 
-var charts = new ECharts();
-let option = {
-  tooltip: {
-    trigger: 'item',
-    formatter: "{a} <br/>{b}: {c} ({d}%)"
-  },
-  legend: {
-    orient: 'vertical',
-    x: 'left',
-    data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-  },
-  series: [
-    {
-      name:'访问来源',
-      type:'pie',
-      radius: ['50%', '70%'],
-      avoidLabelOverlap: false,
-      label: {
-        normal: {
-          show: false,
-          position: 'center'
-        },
-        emphasis: {
-          show: true,
-          textStyle: {
-            fontSize: '30',
-            fontWeight: 'bold'
-          }
-        }
-      },
-      labelLine: {
-        normal: {
-          show: false
-        }
-      },
-      data:[
-        {value:335, name:'直接访问'},
-        {value:310, name:'邮件营销'},
-        {value:234, name:'联盟广告'},
-        {value:135, name:'视频广告'},
-        {value:1548, name:'搜索引擎'}
-      ]
-    }
-  ]
-};
-charts.option = option;
-charts.style = {width:400, height: 400};
-app.addElement(charts);
-
-
-var button1 = new Button();
-button1.style = {fontSize: '30px', color: '#56a'};
-button1.text = "防御代码执行";
-app.addElement(button1);
-
-button1.addEventListener('click', ()=>{
-  console.log('button1 click');
-  video1.paused = !video1.paused;
-});

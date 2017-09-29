@@ -11,90 +11,91 @@ var path = require("path");
 //     .option('-o, --os [value]', '平台', "default")
 //     .parse(process.argv);
 if (process.env.NODE_ENV == undefined)
-    process.env.NODE_ENV = 'development';
+  process.env.NODE_ENV = 'development';
 
 console.log("NODE_ENV:%s", process.env.NODE_ENV);
 
 var clientConfig = {
-    entry:[
-        path.resolve("src/index.js")
-    ],
-    // entry: {
-    //     main: path.resolve("src/index.js"),
-    //     // "babel-polyfill":"babel-polyfill",
-    //     // "react":"react"
-    //     vendor: ["react", "babel-polyfill", "socket.io-client"]
-    // },
-    output: {
-        path: path.resolve("dist"),
-        filename: "[name].js?[hash:8]",
-        chunkFilename: "chunk.[name].js?[chunkhash:8]"
-    },
-    resolve: {
-        modules: ['node_modules', 'src'],
-        extensions: ['.js', '.json', '.less']
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: "'" + process.env.NODE_ENV + "'",
-                VERSION: "'" + new Date().toLocaleString() + "'" // 加入时间戳作为版本识别
-            }
-        }),
-        // new HTMLWebpackPlugin({
-        //     filename: '../../views/prod/index.html',
-        //     template: './views/tpl/index.tpl.html',
-        //     chunksSortMode: 'none'
-        // }),
-        new HTMLWebpackPlugin({
-            template: path.resolve("template/index.html"),
-            // minify: {
-            //     collapseWhitespace: false
-            // },
-            chunksSortMode: 'none'
-        }),
-        new CopyWebpackPlugin([
-            { context:"template", from: '**/*', copyUnmodified:true, ignore: 'index.html'},
-        ]),
-    ],
-    module: {
-        loaders: [{
-            test: /\.(png|jpeg|jpg|gif)$/,
-            loader: 'file-loader?name=assets/[name].[ext]?[hash:8]'
-        }, {
-            test: /\.(eot|svg|ttf|woff|woff2)$/,
-            loader: 'file-loader?name=assets/[name].[ext]?[hash:8]'
-        }, {
-            test: /\.(json|xml)/,
-            loader: 'file-loader?name=assets/[name].[ext]?[hash:8]'
-        },{
-            test: /\.(svg)$/,
-            loader: 'file-loader?name=assets/[name].[ext]?[hash:8]'
-        }, {
-            test: /\.html$/,
-            loader: 'html-loader?minimize=false'
-        }]
-    }
+  entry:[
+    path.resolve("src/index.js")
+  ],
+  // entry: {
+  //     main: path.resolve("src/index.js"),
+  //     // "babel-polyfill":"babel-polyfill",
+  //     // "react":"react"
+  //     vendor: ["react", "babel-polyfill", "socket.io-client"]
+  // },
+  output: {
+    publicPath: '/',
+    path: path.resolve("dist/www"),
+    filename: "[name].js?[hash:8]",
+    chunkFilename: "chunk.[name].js?[chunkhash:8]"
+  },
+  resolve: {
+    modules: ['node_modules', 'src'],
+    extensions: ['.js', '.json', '.less']
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: "'" + process.env.NODE_ENV + "'",
+        VERSION: "'" + new Date().toLocaleString() + "'" // 加入时间戳作为版本识别
+      }
+    }),
+    // new HTMLWebpackPlugin({
+    //     filename: '../../views/prod/index.html',
+    //     template: './views/tpl/index.tpl.html',
+    //     chunksSortMode: 'none'
+    // }),
+    new HTMLWebpackPlugin({
+      template: path.resolve("template/index.html"),
+      // minify: {
+      //     collapseWhitespace: false
+      // },
+      chunksSortMode: 'none'
+    }),
+    new CopyWebpackPlugin([
+      { context:"template", from: '**/*', copyUnmodified:true, ignore: 'index.html'},
+    ]),
+  ],
+  module: {
+    loaders: [{
+      test: /\.(png|jpeg|jpg|gif)$/,
+      loader: 'file-loader?name=assets/[name].[ext]?[hash:8]'
+    }, {
+      test: /\.(eot|svg|ttf|woff|woff2)$/,
+      loader: 'file-loader?name=assets/[name].[ext]?[hash:8]'
+    }, {
+      test: /\.(json|xml)/,
+      loader: 'file-loader?name=assets/[name].[ext]?[hash:8]'
+    },{
+      test: /\.(svg)$/,
+      loader: 'file-loader?name=assets/[name].[ext]?[hash:8]'
+    }, {
+      test: /\.html$/,
+      loader: 'html-loader?minimize=false'
+    }]
+  }
 };
 if (process.env.NODE_ENV == "production") {
-    clientConfig.module.loaders.push({
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loaders: ['babel-loader']
-    });
-    // config.plugins.push(
-    //     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.js")
-    // );
+  clientConfig.module.loaders.push({
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loaders: ['babel-loader']
+  });
+  // config.plugins.push(
+  //     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.js")
+  // );
 }else{
-    // config.devtool = "#source-map";
-    clientConfig.entry.push('webpack-hot-middleware/client');
-    clientConfig.module.loaders.push({
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-    });
-    clientConfig.plugins.push(
-        new webpack.HotModuleReplacementPlugin()
-    );
+  // config.devtool = "#source-map";
+  clientConfig.entry.push('webpack-hot-middleware/client');
+  clientConfig.module.loaders.push({
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loader: 'babel-loader'
+  });
+  clientConfig.plugins.push(
+    new webpack.HotModuleReplacementPlugin()
+  );
 }
 module.exports = [clientConfig];
