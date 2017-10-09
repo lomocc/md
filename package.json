@@ -6,11 +6,12 @@
   "author": "Vincent <const@lomo.cc>",
   "license": "MIT",
   "scripts": {
-    "node_start": "npm run clean && npm run debug && node index.js",
+    "node_start": "npm run clean && node index.js",
+    "updatePosts": "node lib/updatePosts.js",
     "start": "node server.dev.js",
     "clean": "rimraf dist",
     "test": "karma start",
-    "debug": "cross-env NODE_ENV=development webpack",
+    "debug": "cross-env NODE_ENV=development webpack --watch",
     "eslint": "eslint src/**/*.js"
   },
   "dependencies": {

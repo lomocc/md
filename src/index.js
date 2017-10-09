@@ -13,10 +13,14 @@ buttonNav.setStyle({
 buttonNav.style.position = 'fixed';
 app.addElement(buttonNav);
 
-buttonNav.addDOMListener('click', ()=>{
-  console.log('click');
-  // location.href = '/menu.md';
-}, true);
+buttonNav.props.set('onClick', ()=>{
+  // console.log('click location.href2');
+  location.href = '/';
+});
+// buttonNav.addDOMListener('click', ()=>{
+//   console.log('click location.href2');
+//   // location.href = '/menu.md';
+// }, false);
 
 var post_container = new DisplayObject();
 post_container.positioner.innerHTML = post_content;

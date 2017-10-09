@@ -8,21 +8,35 @@ var reader = new commonmark.Parser();
 var writer = new commonmark.HtmlRenderer();
 
 let projectDir = path.join(__dirname, './dist/www');
-let tpl = fs.readFileSync(path.join(projectDir, 'index.html'), 'utf8');
+let tpl;
+
+var webpack = require('webpack');
+// var webpackDevMiddleware = require('webpack-dev-middleware');
+// var webpackHotMiddleware = require('webpack-hot-middleware');
+var config = require('./webpack.config');
+config.watch = true;
+let compiler = webpack(config, ()=>{
+
+  tpl = fs.readFileSync(path.join(projectDir, 'index.html'), 'utf8');
+  console.log('###################################');
+});
+
+// let tpl = fs.readFileSync(path.join(projectDir, 'index.html'), 'utf8');
 
 var app = express();
 app.use(require('compression')(), express.static(projectDir));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.get('/404', function(req, res) {
-  res.end('404');
-});
 app.use('/', function(req, res) {
-  let fileName = path.join(__dirname, '_posts', req.path);
-
-  if(!/\.md$/.test(fileName)){
-    fileName = `${fileName}.md`;
+  let fileName = req.path;
+  console.log(';', fileName, ';');
+  if(fileName == '/'){
+    fileName = '/menu.md';
   }
-  fs.readFile(fileName, 'utf8', (err, data)=> {
+  let filePath = path.join(__dirname, '_posts', fileName);
+
+  if(!/\.md$/.test(filePath)){
+    filePath = `${filePath}.md`;
+  }
+  fs.readFile(filePath, 'utf8', (err, data)=> {
     if(err){
       res.end();
       return ;
@@ -33,6 +47,13 @@ app.use('/', function(req, res) {
     res.end(HTML);
   });
 });
+
+// app.use(webpackDevMiddleware(compiler, {
+//   noInfo: true,
+//   // publicPath: config.output.publicPath
+// }));
+//
+// app.use(webpackHotMiddleware(compiler));
 
 app.listen(80, function () {
   var host = this.address().address;
